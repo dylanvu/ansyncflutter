@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import './scripts/fetch_level.dart';
+import './scripts/post_level.dart';
 
 class WaterSelect extends StatefulWidget {
   const WaterSelect({Key? key}) : super(key: key);
@@ -14,22 +13,17 @@ class _WaterSelectState extends State<WaterSelect> {
   // Water specific states
   double _waterLevel = 0;
   String _waterLevelstr = "0%";
-  // Future<double> _futureWaterlevel;
 
-  // Get water level from backend
-  // Future<double> fetchLevel() async {
-  //   final response = await http.get(Uri.parse('http://localhost:3000'));
-  //   if (response.statusCode == 200) {
-  //     // 200 means the response is okay, so get the body and return it
-  //     // response.body is a JSON string, so decode into a map to extract the value from it
-  //     Map jsonMap = json.decode(response.body);
-  //     return jsonMap['waterlevel'];
-  //   } else {
-  //     throw Exception('Failed to get water level');
-  //   }
-  // }
+  // Post success/failure
+  // This number can be either 0, 1, or 2 where 0 indicates a failed post operation, 1 indicates a successful one, and 2 indicates no post has been made yet
+  int _post = 2;
 
-  // TODO: The slider resets after moving to another page. Use a useEffect type of thing to pull it from the database?
+  void _setPostStatus(number) {
+    setState(() {
+      _post = number;
+    });
+  }
+
   void _setWaterlevel(newLevel) {
     setState(() {
       _waterLevel = newLevel;
@@ -41,12 +35,9 @@ class _WaterSelectState extends State<WaterSelect> {
   @override
   void initState() {
     // Obtain the current water level from the database and set the slider to it
-    fetchLevel().then((value) => {_setWaterlevel(value)});
-    // Future<double> initialLevel = fetchLevel();
-    // setState(() {
-    //   _futureWaterlevel = initialLevel;
-    // });
-    // _setWaterlevel(initialLevel);
+    fetchLevel()
+        .then((value) => {_setWaterlevel(value)})
+        .catchError((e) => print(e));
     super.initState();
   }
 
@@ -66,6 +57,7 @@ class _WaterSelectState extends State<WaterSelect> {
                     value: _waterLevel,
                     onChanged: (newLevel) {
                       _setWaterlevel(newLevel);
+                      _setPostStatus(2);
                     },
                   )),
               Text(_waterLevelstr),
@@ -85,10 +77,20 @@ class _WaterSelectState extends State<WaterSelect> {
                 child: TextButton(
                   child: const Text("Push to Firestore"),
                   onPressed: () {
-                    // Push to Firestore
+                    postLevel(_waterLevel).then((value) => {
+                          if (value)
+                            {_setPostStatus(1)}
+                          else
+                            {_setPostStatus(0)}
+                        });
                   },
                 ),
-              )
+              ),
+              const SizedBox(height: 20),
+              if (_post == 1) const Text("Successfully pushed to Firestore"),
+              if (_post == 0)
+                const Text(
+                    "An error has occurred. Unsuccessfully pushed to Firestore."),
             ])));
   }
 }

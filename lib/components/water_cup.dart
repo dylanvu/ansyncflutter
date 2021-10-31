@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../scripts/fetch_level.dart';
 
 // Use CustomPaint to draw the water cup shape and fill it in
 class WaterCup extends StatefulWidget {
@@ -16,16 +17,19 @@ class _WaterCupState extends State<WaterCup> {
     setState(() {
       _waterLevel = newLevel;
       // Also set the string state
-      _setWaterlevelStr(newLevel);
-    });
-  }
-
-  // Use this state function to obtain a formatted string of percentages from the slider
-  void _setWaterlevelStr(newLevel) {
-    setState(() {
       String newString = (newLevel * 100).toStringAsFixed(0);
       _waterLevelstr = newString + '%';
     });
+  }
+
+  @override
+  void initState() {
+    // Obtain the current water level from the database and set the slider to it
+    fetchLevel()
+        .then((value) => {_setWaterlevel(value)})
+        .catchError((e) => print(e));
+    ;
+    super.initState();
   }
 
   @override
@@ -40,15 +44,6 @@ class _WaterCupState extends State<WaterCup> {
         ),
         Text(_waterLevelstr),
         const SizedBox(height: 20),
-        TextButton(
-            onPressed: () {
-              if (_waterLevel > 0.99) {
-                _setWaterlevel(0);
-              } else {
-                _setWaterlevel(_waterLevel + 0.1);
-              }
-            },
-            child: const Text("Watch me rise")),
       ],
     )));
   }

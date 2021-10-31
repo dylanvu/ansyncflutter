@@ -7,4 +7,6 @@ A Water Level Monitoring App developed for Ansync. The app works on the web and 
 * Learning Custom Paint: https://blog.logrocket.com/drawing-shapes-in-flutter-with-custompaint-and-shape-maker/
 * Creating Themes: https://api.flutter.dev/flutter/material/SliderThemeData-class.html
 * Customizing Sliders: https://medium.com/flutter-community/flutter-sliders-demystified-4b3ea65879c
-* HTTP Package: https://flutter.dev/docs/cookbook/networking/fetch-data
+* HTTP Get: https://flutter.dev/docs/cookbook/networking/fetch-data
+* JSON String to Map: https://stackoverflow.com/questions/49651673/converting-string-to-map-in-dart
+* HTTP Post: https://flutter.dev/docs/cookbook/networking/send-data
