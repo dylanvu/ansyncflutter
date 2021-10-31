@@ -18,7 +18,7 @@ Using FlutterFire was attempted, but there were some errors with connecting to F
 * Reoccurring functions in Dart: https://stackoverflow.com/questions/14946012/how-do-i-run-a-reoccurring-function-in-dart
 * Flutter Socket.io client documentation: https://pub.dev/packages/socket_io_client
 * Flutter Socket.io client example: https://blog.codemagic.io/flutter-ui-socket/
-* Flutter Socket.io invalid frame header connection error: https://socket.io/docs/v4/server-options/#alloweio3
+* Flutter Socket.io invalid frame header connection error: https://stackoverflow.com/questions/43526607/invalid-frame-header and https://socket.io/docs/v4/server-options/#alloweio3
 * Setting State on Disposed Widgets Error: https://stackoverflow.com/questions/52288613/how-to-dispose-of-my-stateful-widget-completely
 
 ## Resources Used - Backend
