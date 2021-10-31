@@ -75,7 +75,7 @@ class LinePainter extends CustomPainter {
 
     double cupWidthEdge = 60;
     double cupBottomlength = 60;
-    double cupHeight = 200;
+    double cupHeight = 250;
 
     // Define all the relevant coordiantes we'll need for the cup
     // Pick where to start the bottom of the cup
@@ -98,6 +98,8 @@ class LinePainter extends CustomPainter {
     double leftSlope = (bottomLeftY - topLeftY) / (topLeftX - bottomLeftX);
     double rightSlope = (topRightY - bottomRightY) / (topRightX - bottomRightX);
 
+    double ovalHeight = 30.0;
+
     // Fill in the cup with water
     var path = Path();
     // Start at the middle of the cup
@@ -112,8 +114,8 @@ class LinePainter extends CustomPainter {
     // If the water is full, then fill in the top of the cup with water
     // TODO: Modify percentage threshold
     if (percentage > 0.99) {
-      Rect cupOpeningtop =
-          Offset(topLeftX, topLeftY - 25) & Size((topRightX - topLeftX), 50.0);
+      Rect cupOpeningtop = Offset(topLeftX, topLeftY - ovalHeight / 2) &
+          Size((topRightX - topLeftX), ovalHeight);
       path.arcTo(cupOpeningtop, 3.14, 3.14, false);
     } else {
       // Go across the cup
@@ -147,13 +149,13 @@ class LinePainter extends CustomPainter {
     canvas.drawLine(bottomLeft, topLeft, cupPaint);
 
     // Draw the oval top
-    Rect cupOpeningtop =
-        Offset(topLeftX, topLeftY - 25) & Size((topRightX - topLeftX), 50.0);
+    Rect cupOpeningtop = Offset(topLeftX, topLeftY - ovalHeight / 2) &
+        Size((topRightX - topLeftX), ovalHeight);
     canvas.drawArc(cupOpeningtop, 3.14, 3.14, false, cupPaint);
 
     // Draw the oval bottom
-    Rect cupOpeningbottom =
-        Offset(topLeftX, topLeftY - 25) & Size((topRightX - topLeftX), 50.0);
+    Rect cupOpeningbottom = Offset(topLeftX, topLeftY - ovalHeight / 2) &
+        Size((topRightX - topLeftX), ovalHeight);
     canvas.drawArc(cupOpeningbottom, 3.14, -3.14, false, cupPaint);
   }
 
