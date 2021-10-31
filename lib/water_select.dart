@@ -67,6 +67,7 @@ class _WaterSelectState extends State<WaterSelect> {
                       _setPostStatus(2);
                     },
                   )),
+              const SizedBox(height: 10),
               Text(
                 _waterLevelstr,
                 style: TextStyle(
