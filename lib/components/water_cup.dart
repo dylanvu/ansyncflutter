@@ -25,10 +25,13 @@ class _WaterCupState extends State<WaterCup> {
   @override
   void initState() {
     // Obtain the current water level from the database and set the slider to it
-    fetchLevel()
-        .then((value) => {_setWaterlevel(value)})
-        .catchError((e) => print(e));
-    ;
+    try {
+      fetchLevel()
+          .then((value) => {_setWaterlevel(value)})
+          .catchError((e) => print(e));
+    } catch (e) {
+      print(e);
+    }
     super.initState();
   }
 

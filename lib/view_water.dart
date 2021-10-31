@@ -9,15 +9,6 @@ class WaterView extends StatefulWidget {
 }
 
 class _WaterViewState extends State<WaterView> {
-  double _currWaterlevel = 0;
-
-  void _adjustWaterlevel(newLevel) {
-    print(newLevel);
-    setState(() {
-      _currWaterlevel = newLevel;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -19,6 +19,7 @@ class _WaterSelectState extends State<WaterSelect> {
   int _post = 2;
 
   void _setPostStatus(number) {
+    print(number);
     setState(() {
       _post = number;
     });
@@ -35,9 +36,14 @@ class _WaterSelectState extends State<WaterSelect> {
   @override
   void initState() {
     // Obtain the current water level from the database and set the slider to it
-    fetchLevel()
-        .then((value) => {_setWaterlevel(value)})
-        .catchError((e) => print(e));
+    try {
+      fetchLevel()
+          .then((value) => {_setWaterlevel(value)})
+          .catchError((e) => print(e));
+    } catch (e) {
+      print(e);
+    }
+
     super.initState();
   }
 
