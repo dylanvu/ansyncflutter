@@ -19,7 +19,6 @@ class _WaterSelectState extends State<WaterSelect> {
   int _post = 2;
 
   void _setPostStatus(number) {
-    print(number);
     setState(() {
       _post = number;
     });

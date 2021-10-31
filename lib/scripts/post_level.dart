@@ -19,7 +19,8 @@ Future<bool> postLevel(newLevel) async {
   ); // Deployed backend on Replit
 
   if (response.statusCode != 201) {
-    throw Exception("Failed to update water level");
+    print("Failed to update water level");
+    return false;
   }
   return true;
 }
