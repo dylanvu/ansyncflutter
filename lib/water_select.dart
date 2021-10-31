@@ -2,14 +2,23 @@ import 'package:flutter/material.dart';
 import './scripts/fetch_level.dart';
 import './scripts/post_level.dart';
 
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 class WaterSelect extends StatefulWidget {
-  const WaterSelect({Key? key}) : super(key: key);
+  WaterSelect(this.socket, {Key? key}) : super(key: key);
+
+  IO.Socket socket;
 
   @override
-  State<WaterSelect> createState() => _WaterSelectState();
+  State<WaterSelect> createState() => _WaterSelectState(socket);
 }
 
 class _WaterSelectState extends State<WaterSelect> {
+  _WaterSelectState(this.socket);
+
+  // Socket state
+  IO.Socket socket;
+
   // Water specific states
   double _waterLevel = 0;
   String _waterLevelstr = "0%";
@@ -25,11 +34,13 @@ class _WaterSelectState extends State<WaterSelect> {
   }
 
   void _setWaterlevel(newLevel) {
-    setState(() {
-      _waterLevel = newLevel;
-      String newString = (newLevel * 100).toStringAsFixed(0);
-      _waterLevelstr = newString + '%';
-    });
+    if (mounted) {
+      setState(() {
+        _waterLevel = newLevel;
+        String newString = (newLevel * 100).toStringAsFixed(0);
+        _waterLevelstr = newString + '%';
+      });
+    }
   }
 
   @override
@@ -42,7 +53,14 @@ class _WaterSelectState extends State<WaterSelect> {
     } catch (e) {
       print(e);
     }
-
+    // Listen for an update event
+    socket.on(
+        'updatewater',
+        (_) => {
+              fetchLevel()
+                  .then((value) => {_setWaterlevel(value)})
+                  .catchError((e) => print(e))
+            });
     super.initState();
   }
 

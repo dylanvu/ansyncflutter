@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
 import '../scripts/fetch_level.dart';
 
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 // Use CustomPaint to draw the water cup shape and fill it in
 class WaterCup extends StatefulWidget {
-  const WaterCup({Key? key}) : super(key: key);
+  WaterCup(this.socket, {Key? key}) : super(key: key);
+
+  IO.Socket socket;
 
   @override
-  State<WaterCup> createState() => _WaterCupState();
+  State<WaterCup> createState() => _WaterCupState(socket);
 }
 
 class _WaterCupState extends State<WaterCup> {
+  _WaterCupState(this.socket);
+  // Socket state
+  IO.Socket socket;
+
   double _waterLevel = 0;
   String _waterLevelstr = "0%";
 
   void _setWaterlevel(newLevel) {
-    setState(() {
-      _waterLevel = newLevel;
-      // Also set the string state
-      String newString = (newLevel * 100).toStringAsFixed(0);
-      _waterLevelstr = newString + '%';
-    });
+    // Only set state if the component is mounted
+    if (mounted) {
+      setState(() {
+        _waterLevel = newLevel;
+        // Also set the string state
+        String newString = (newLevel * 100).toStringAsFixed(0);
+        _waterLevelstr = newString + '%';
+      });
+    }
   }
 
   @override
@@ -32,6 +43,14 @@ class _WaterCupState extends State<WaterCup> {
     } catch (e) {
       print(e);
     }
+    // Listen for an update event
+    socket.on(
+        'updatewater',
+        (_) => {
+              fetchLevel()
+                  .then((value) => {_setWaterlevel(value)})
+                  .catchError((e) => print(e))
+            });
     super.initState();
   }
 

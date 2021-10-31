@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import 'water_select.dart';
 import 'view_water.dart';
-
 import './components/custom_slider.dart';
 
 void main() {
   runApp(const WaterLevelApp());
 }
 
-class WaterLevelApp extends StatelessWidget {
+class WaterLevelApp extends StatefulWidget {
   const WaterLevelApp({Key? key}) : super(key: key);
+
+  @override
+  State<WaterLevelApp> createState() => _WaterLevelAppState();
+}
+
+class _WaterLevelAppState extends State<WaterLevelApp> {
+  // IO.Socket socket = IO.io(
+  //     'http://localhost:3000',
+  //     IO.OptionBuilder()
+  //         .setTransports(['websocket']).build()); // localhost backend
+
+  IO.Socket socket = IO.io(
+      'https://ansyncflutterbackend.dulanvee.repl.co',
+      IO.OptionBuilder()
+          .setTransports(['websocket']).build()); // Deloyed Replit backend
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +56,8 @@ class WaterLevelApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => const WaterSelect(),
-          '/view': (context) => const WaterView(),
+          '/': (context) => WaterSelect(socket),
+          '/view': (context) => WaterView(socket),
         });
   }
 }
