@@ -39,10 +39,17 @@ class _WaterCupState extends State<WaterCup> {
             child: Column(
       children: <Widget>[
         CustomPaint(
-          size: const Size(400, 400),
+          size: const Size(400, 270),
           painter: LinePainter(_waterLevel),
         ),
-        Text(_waterLevelstr),
+        Text(
+          _waterLevelstr,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: Colors.grey.shade800,
+          ),
+        ),
         const SizedBox(height: 20),
       ],
     )));

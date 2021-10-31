@@ -15,26 +15,27 @@ class WaterLevelApp extends StatelessWidget {
     return MaterialApp(
         title: 'Water Level App',
         theme: ThemeData(
-            primarySwatch: Colors.purple,
-            textButtonTheme: TextButtonThemeData(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Colors.purple,
-                ),
-                foregroundColor: MaterialStateProperty.all<Color>(
-                  Colors.white,
-                ),
+          primarySwatch: Colors.purple,
+          textButtonTheme: TextButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Colors.purple,
+              ),
+              foregroundColor: MaterialStateProperty.all<Color>(
+                Colors.white,
               ),
             ),
-            sliderTheme: SliderThemeData(
-              trackHeight: 30,
-              activeTrackColor: Colors.indigo[200],
-              inactiveTrackColor: Colors.grey[200],
-              // overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
-              trackShape: const RectangularSliderTrackShape(),
-              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 17),
-              // trackShape: RoundedRectSliderTrackShape()
-            )),
+          ),
+          sliderTheme: SliderThemeData(
+            trackHeight: 30,
+            activeTrackColor: Colors.indigo[200],
+            inactiveTrackColor: Colors.grey[200],
+            // overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
+            trackShape: const RectangularSliderTrackShape(),
+            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 17),
+            // trackShape: RoundedRectSliderTrackShape()
+          ),
+        ),
         initialRoute: '/',
         routes: {
           '/': (context) => const WaterSelect(),

@@ -49,7 +49,14 @@ class _WaterSelectState extends State<WaterSelect> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-              const Text("Select Water Level"),
+              Text(
+                "Select Water Level",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.grey.shade800,
+                ),
+              ),
               const SizedBox(height: 20),
               SizedBox(
                   width: 300,
@@ -60,7 +67,14 @@ class _WaterSelectState extends State<WaterSelect> {
                       _setPostStatus(2);
                     },
                   )),
-              Text(_waterLevelstr),
+              Text(
+                _waterLevelstr,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.grey.shade800,
+                ),
+              ),
               const SizedBox(
                   height: 20), // Use a SizedBox to control whitespace height
               SizedBox(
@@ -87,10 +101,24 @@ class _WaterSelectState extends State<WaterSelect> {
                 ),
               ),
               const SizedBox(height: 20),
-              if (_post == 1) const Text("Successfully pushed to Firestore"),
+              if (_post == 1)
+                Text(
+                  "Successfully pushed to Firestore",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.green.shade900,
+                  ),
+                ),
               if (_post == 0)
-                const Text(
-                    "An error has occurred. Unsuccessfully pushed to Firestore."),
+                Text(
+                  "An Firebase error has occurred. Nothing was pushed.",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.red.shade900,
+                  ),
+                ),
             ])));
   }
 }
