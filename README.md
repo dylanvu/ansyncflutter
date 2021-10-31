@@ -1,10 +1,20 @@
 # Water Level App
 
-A Water Level Monitoring App developed for Ansync. The app works on the web view and on Android only and requires the associated backend to work correctly.
+A Water Level Monitoring App developed for Ansync. The app works on the web view and on Android only and requires the associated backend. The backend is currently deployed to Replit, and is identical to the provided code in the repository.
 
-The backend is currently deployed to Replit, and is identical to the provided code in the repository.
+Demo Video: https://youtu.be/dA5jetOhVcs
+(Video is slightly laggy because I was recording, running the Android Studio Emulator, and multiple Chrome tabs at once with an older laptop)
 
-Using FlutterFire was attempted, but there were some errors with connecting to Firebase, which is why I opted for a Node.js backend instead and used HTTP requests and socket.io to get the data.
+If you want to run the backend locally, use the web version of the application and follow the following steps:
+1. Modify the following lines of code inside of the `ansyncflutter` folder:
+   * `ansyncflutter/lib/main.dart`: Make sure `IO.Socket socket` state points to `'http://localhost:3000'` and not `'https://ansyncflutterbackend.dulanvee.repl.co'`
+   * `ansyncflutter/lib/scripts/fetch_level.dart`: Make sure the `Uri.parse()` is parsing `'http://localhost:3000'` and not `'https://ansyncflutterbackend.dulanvee.repl.co'`
+   * `ansyncflutter/lib/scripts/post_level.dart`: Make sure the `Uri.parse()` is parsing `'http://localhost:3000'` and not `'https://ansyncflutterbackend.dulanvee.repl.co'`
+2. Ensure that the backend packages are installed by running `npm install` inside the backend directory
+3. Run `node server.js` in the backend
+4. Launch the Flutter frontend using a web browser such as Chrome.
+
+I opted for a Node.js backend and used HTTP requests and socket.io to get the data to the Flutter frontend.
 
 ## Resouces Used - Frontend
 * Setting Color Shades: https://stackoverflow.com/questions/49319333/how-do-i-use-the-different-shades-of-a-color-swatch-in-flutter
@@ -24,3 +34,11 @@ Using FlutterFire was attempted, but there were some errors with connecting to F
 * Setting up Firestore on NodeJS: https://firebase.google.com/docs/admin/setup
 * Getting Data from Firestore: https://firebase.google.com/docs/firestore/query-data/get-data
 * Firestore listener: https://firebase.google.com/docs/firestore/query-data/listen
+
+## Areas of Improvement
+* Figuring out FlutterFire to cut out the need for a dedicated NodeJS backend and setting up the cloud listener
+* Only render components after requests to prevent the initial change from 0% water to the desired percentage, possibly using FutureBuilder
+* Figuring out a way to pass the sockets more efficiently to the water_cup component say through a global state/equivalent to React.js contexts, rather than passing it several times through widget constructors to the child component
+* Method for seamlessly running the backend locally without having to modify frontend code?
+* Flutter buttons staying on the same height between pages
+* Flutter slider track should have rounded corners
