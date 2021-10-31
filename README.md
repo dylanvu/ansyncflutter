@@ -14,8 +14,6 @@ Using FlutterFire was attempted, but there were some errors with connecting to F
 * JSON String to Map: https://stackoverflow.com/questions/49651673/converting-string-to-map-in-dart
 * HTTP Post: https://flutter.dev/docs/cookbook/networking/send-data
 * Custom Slider: https://blog.logrocket.com/flutter-slider-widgets-deep-dive-with-examples/
-* Function as a parameter: https://stackoverflow.com/questions/43334714/pass-a-typed-function-as-a-parameter-in-dart
-* Reoccurring functions in Dart: https://stackoverflow.com/questions/14946012/how-do-i-run-a-reoccurring-function-in-dart
 * Flutter Socket.io client documentation: https://pub.dev/packages/socket_io_client
 * Flutter Socket.io client example: https://blog.codemagic.io/flutter-ui-socket/
 * Flutter Socket.io invalid frame header connection error: https://stackoverflow.com/questions/43526607/invalid-frame-header and https://socket.io/docs/v4/server-options/#alloweio3
