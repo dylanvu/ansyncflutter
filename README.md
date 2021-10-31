@@ -26,4 +26,3 @@ Using FlutterFire was attempted, but there were some errors with connecting to F
 * Setting up Firestore on NodeJS: https://firebase.google.com/docs/admin/setup
 * Getting Data from Firestore: https://firebase.google.com/docs/firestore/query-data/get-data
 * Firestore listener: https://firebase.google.com/docs/firestore/query-data/listen
-* Socket.io NodeJS sockets connected to server: https://stackoverflow.com/questions/9352549/getting-how-many-people-are-in-a-chat-room-in-socket-io/24425207#24425207
