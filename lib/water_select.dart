@@ -27,13 +27,16 @@ class _WaterSelectState extends State<WaterSelect> {
   // This number can be either 0, 1, or 2 where 0 indicates a failed post operation, 1 indicates a successful one, and 2 indicates no post has been made yet
   int _post = 2;
 
+  // Create a ValueNotifier
+  final ValueNotifier<double> _sliderValue = ValueNotifier<double>(0);
+
   void _setPostStatus(number) {
     setState(() {
       _post = number;
     });
   }
 
-  void _setWaterlevel(newLevel) {
+  void setWaterlevel(newLevel) {
     if (mounted) {
       setState(() {
         _waterLevel = newLevel;
@@ -48,7 +51,10 @@ class _WaterSelectState extends State<WaterSelect> {
     // Obtain the current water level from the database and set the slider to it
     try {
       fetchLevel()
-          .then((value) => {_setWaterlevel(value)})
+          .then((value) => {setWaterlevel(value)})
+          .catchError((e) => print(e));
+      fetchLevel()
+          .then((value) => {_sliderValue.value = value})
           .catchError((e) => print(e));
     } catch (e) {
       print(e);
@@ -58,7 +64,7 @@ class _WaterSelectState extends State<WaterSelect> {
         'updatewater',
         (_) => {
               fetchLevel()
-                  .then((value) => {_setWaterlevel(value)})
+                  .then((value) => {setWaterlevel(value)})
                   .catchError((e) => print(e))
             });
     super.initState();
@@ -72,8 +78,7 @@ class _WaterSelectState extends State<WaterSelect> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-              // StatelessSlider(_setWaterlevel),
-              StatelessSlider(),
+              // StatelessSlider(),
               Text(
                 "Select Water Level",
                 style: TextStyle(
@@ -83,26 +88,26 @@ class _WaterSelectState extends State<WaterSelect> {
                 ),
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                  width: 300,
-                  child: Slider(
-                    value: _waterLevel,
-                    onChanged: (newLevel) {
-                      _setWaterlevel(newLevel);
-                      _setPostStatus(2);
-                    },
-                  )),
-              const SizedBox(height: 10),
-              Text(
-                _waterLevelstr,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.grey.shade800,
-                ),
-              ),
-              const SizedBox(
-                  height: 20), // Use a SizedBox to control whitespace height
+              StatelessSlider(_sliderValue),
+              // SizedBox(
+              //     width: 300,
+              //     child: Slider(
+              //       value: _waterLevel,
+              //       onChanged: (newLevel) {
+              //         setWaterlevel(newLevel);
+              //         _setPostStatus(2);
+              //       },
+              //     )),
+              // const SizedBox(height: 10),
+              // Text(
+              //   _waterLevelstr,
+              //   style: TextStyle(
+              //     fontWeight: FontWeight.bold,
+              //     fontSize: 20,
+              //     color: Colors.grey.shade800,
+              //   ),
+              // ),
+              const SizedBox(height: 20), // whitespace
               SizedBox(
                 child: TextButton(
                   child: const Text("Next Page"),
@@ -117,7 +122,13 @@ class _WaterSelectState extends State<WaterSelect> {
                 child: TextButton(
                   child: const Text("Push to Firestore"),
                   onPressed: () {
-                    postLevel(_waterLevel).then((value) => {
+                    // postLevel(_waterLevel).then((value) => {
+                    //       if (value)
+                    //         {_setPostStatus(1)}
+                    //       else
+                    //         {_setPostStatus(0)}
+                    //     });
+                    postLevel(_sliderValue.value).then((value) => {
                           if (value)
                             {_setPostStatus(1)}
                           else
