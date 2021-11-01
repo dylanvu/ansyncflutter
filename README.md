@@ -2,6 +2,8 @@
 
 A Water Level Monitoring App developed for Ansync. The app works on the web view and on Android only and requires the associated backend. The backend is currently deployed to Replit, and is identical to the provided code in the repository.
 
+Please note that I have provided my Firebase credentials in the json to enable the technical team to run the application for themselves.
+
 Demo Video: https://youtu.be/dA5jetOhVcs
 (Video is slightly laggy because I was recording, running the Android Studio Emulator, and multiple Chrome tabs at once with an older laptop)
 
