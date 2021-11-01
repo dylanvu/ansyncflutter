@@ -1,44 +1,29 @@
 import 'package:flutter/material.dart';
 
-class RectangleThumb extends SliderComponentShape {
-  final double thumbWidth;
-  final double thumbHeight;
+class StatelessSlider extends StatelessWidget {
+  // final Function(double changed) updateLevel;
+  // StatelessSlider(this.updateLevel, {Key? key}) : super(key: key);
 
-  RectangleThumb(this.thumbWidth, this.thumbHeight);
+  StatelessSlider({Key? key}) : super(key: key);
 
-  @override
-  Size getPreferredSize(bool isEnabled, bool isDiscrete) {
-    return Size(thumbWidth, thumbHeight);
-  }
+  // Create a ValueNotifier
+  final ValueNotifier<double> _sliderValue = ValueNotifier<double>(0);
 
   @override
-  void paint(
-    PaintingContext context,
-    Offset center, {
-    required Animation<double> activationAnimation,
-    required Animation<double> enableAnimation,
-    required bool isDiscrete,
-    required TextPainter labelPainter,
-    required RenderBox parentBox,
-    required SliderThemeData sliderTheme,
-    required TextDirection textDirection,
-    required double value,
-    required double textScaleFactor,
-    required Size sizeWithOverflow,
-  }) {
-    final Canvas canvas = context.canvas;
-    var thumbPaint = Paint()
-      // .. is "cascade notation" to basically simplify repeated calls to the same thing, like Paint().color and Paint().strokeWidth
-      ..color = Colors.purple
-      ..strokeWidth = 10
-      ..style = PaintingStyle.fill;
-
-    // Use the center parameter to ensure that the shape follows the actual position of the slider
-    double centerX = center.dx;
-    double centerY = center.dy;
-    Rect sliderRect =
-        Offset(centerX - thumbWidth / 2, centerY - thumbHeight / 2) &
-            Size(thumbWidth, thumbHeight);
-    canvas.drawRect(sliderRect, thumbPaint);
+  Widget build(BuildContext context) {
+    // Trigger slider widget rebuild whenever underlying slider material widget is changed using ValueListenableBuilder
+    return ValueListenableBuilder(
+        valueListenable: _sliderValue,
+        builder: (BuildContext context, double valueNum, Widget? child) {
+          return SizedBox(
+              width: 300,
+              child: Slider(
+                value: valueNum,
+                onChanged: (newLevel) {
+                  // updateLevel(newLevel);
+                  _sliderValue.value = newLevel;
+                },
+              ));
+        });
   }
 }

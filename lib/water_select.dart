@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './scripts/fetch_level.dart';
 import './scripts/post_level.dart';
-
+import './components/custom_slider.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class WaterSelect extends StatefulWidget {
@@ -72,6 +72,8 @@ class _WaterSelectState extends State<WaterSelect> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+              // StatelessSlider(_setWaterlevel),
+              StatelessSlider(),
               Text(
                 "Select Water Level",
                 style: TextStyle(

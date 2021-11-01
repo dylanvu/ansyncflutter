@@ -3,7 +3,7 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import 'water_select.dart';
 import 'view_water.dart';
-import './components/custom_slider.dart';
+import 'components/rectangle_thumb.dart';
 
 void main() {
   runApp(const WaterLevelApp());

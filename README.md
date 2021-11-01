@@ -30,6 +30,8 @@ I opted for a Node.js backend and used HTTP requests and socket.io to get the da
 * Flutter Socket.io client example: https://blog.codemagic.io/flutter-ui-socket/
 * Flutter Socket.io invalid frame header connection error: https://stackoverflow.com/questions/43526607/invalid-frame-header and https://socket.io/docs/v4/server-options/#alloweio3
 * Setting State on Disposed Widgets Error: https://stackoverflow.com/questions/52288613/how-to-dispose-of-my-stateful-widget-completely
+* ValueNotifier: https://medium.com/flutterdevs/exploring-valuelistenablebuilder-in-flutter-9a16fc4c4c5b
+* Reoccuring function: https://stackoverflow.com/questions/14946012/how-do-i-run-a-reoccurring-function-in-dart
 
 ## Resources Used - Backend
 * Firestore Quickstart: https://firebase.google.com/docs/firestore/quickstart
