@@ -4,9 +4,6 @@ A Water Level Monitoring App developed for Ansync. The app works on the web view
 
 Please note that I have provided my Firebase credentials in the json to enable the technical team to run the application for themselves.
 
-Demo Video: https://youtu.be/dA5jetOhVcs
-(Video is slightly laggy because I was recording, running the Android Studio Emulator, and multiple Chrome tabs at once with an older laptop)
-
 If you want to run the backend locally, use the web version of the application and follow the following steps:
 1. Modify the following lines of code inside of the `ansyncflutter` folder:
    * `ansyncflutter/lib/main.dart`: Make sure `IO.Socket socket` state points to `'http://localhost:3000'` and not `'https://ansyncflutterbackend.dulanvee.repl.co'`
@@ -42,7 +39,7 @@ I opted for a Node.js backend and used HTTP requests and socket.io to get the da
 ## Areas of Improvement
 * Figuring out FlutterFire to cut out the need for a dedicated NodeJS backend and setting up the cloud listener
 * Only render components after requests to prevent the initial change from 0% water to the desired percentage, possibly using FutureBuilder
-* Figuring out a way to pass the sockets more efficiently to the water_cup component say through a global state/equivalent to React.js contexts, rather than passing it several times through widget constructors to the child component
+* Figuring out a way to pass the sockets more efficiently to the water_cup component using state management libraries
 * Method for seamlessly running the backend locally without having to modify frontend code?
 * Flutter buttons staying on the same height between pages
 * Flutter slider track should have rounded corners
