@@ -19,10 +19,6 @@ class _WaterSelectState extends State<WaterSelect> {
   // Socket state
   IO.Socket socket;
 
-  // Water specific states
-  double _waterLevel = 0;
-  String _waterLevelstr = "0%";
-
   // Post success/failure
   // This number can be either 0, 1, or 2 where 0 indicates a failed post operation, 1 indicates a successful one, and 2 indicates no post has been made yet
   int _post = 2;
@@ -36,35 +32,21 @@ class _WaterSelectState extends State<WaterSelect> {
     });
   }
 
-  void setWaterlevel(newLevel) {
-    if (mounted) {
-      setState(() {
-        _waterLevel = newLevel;
-        String newString = (newLevel * 100).toStringAsFixed(0);
-        _waterLevelstr = newString + '%';
-      });
-    }
-  }
-
   @override
   void initState() {
     // Obtain the current water level from the database and set the slider to it
     try {
-      fetchLevel()
-          .then((value) => {setWaterlevel(value)})
-          .catchError((e) => print(e));
       fetchLevel()
           .then((value) => {_sliderValue.value = value})
           .catchError((e) => print(e));
     } catch (e) {
       print(e);
     }
-    // Listen for an update event
     socket.on(
         'updatewater',
         (_) => {
               fetchLevel()
-                  .then((value) => {setWaterlevel(value)})
+                  .then((value) => {_sliderValue.value = value})
                   .catchError((e) => print(e))
             });
     super.initState();
@@ -78,7 +60,6 @@ class _WaterSelectState extends State<WaterSelect> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-              // StatelessSlider(),
               Text(
                 "Select Water Level",
                 style: TextStyle(
@@ -89,24 +70,6 @@ class _WaterSelectState extends State<WaterSelect> {
               ),
               const SizedBox(height: 20),
               StatelessSlider(_sliderValue),
-              // SizedBox(
-              //     width: 300,
-              //     child: Slider(
-              //       value: _waterLevel,
-              //       onChanged: (newLevel) {
-              //         setWaterlevel(newLevel);
-              //         _setPostStatus(2);
-              //       },
-              //     )),
-              // const SizedBox(height: 10),
-              // Text(
-              //   _waterLevelstr,
-              //   style: TextStyle(
-              //     fontWeight: FontWeight.bold,
-              //     fontSize: 20,
-              //     color: Colors.grey.shade800,
-              //   ),
-              // ),
               const SizedBox(height: 20), // whitespace
               SizedBox(
                 child: TextButton(
@@ -122,12 +85,6 @@ class _WaterSelectState extends State<WaterSelect> {
                 child: TextButton(
                   child: const Text("Push to Firestore"),
                   onPressed: () {
-                    // postLevel(_waterLevel).then((value) => {
-                    //       if (value)
-                    //         {_setPostStatus(1)}
-                    //       else
-                    //         {_setPostStatus(0)}
-                    //     });
                     postLevel(_sliderValue.value).then((value) => {
                           if (value)
                             {_setPostStatus(1)}
